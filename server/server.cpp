@@ -17,6 +17,22 @@ string convertToString(char* a, int size) {
     return s;
 }
 
+class LoginData {
+	public:             
+		string username;        
+		string password;
+		LoginData(string path) {
+			fstream my_data;
+			my_data.open(path, ios::in);
+
+			if (my_data.is_open()) {
+				getline(my_data, username);
+				getline(my_data, password);
+
+			}
+		}
+};
+
 int main() {
 	
     int iResult=0;
@@ -102,21 +118,11 @@ int main() {
 	char recvbuf[DEFAULT_BUFLEN];
 	int iSendResult;
 	int recvbuflen = DEFAULT_BUFLEN;
-	string username;
-	string password;
+	LoginData data("./data/data.txt");
+	string username = data.username;
+	string password = data.password;
 	// Receive until the peer shuts down the connection
 			
-	fstream my_data;
-	my_data.open("./data/data.txt", ios::in);
-	if (my_data.is_open()) {
-		// string str1;
-		// string str2;
-		getline(my_data, username);
-		getline(my_data, password);
-
-		cout << username << " " << password << endl;
-
-	}
 
 	do {
 	
@@ -127,14 +133,14 @@ int main() {
 			cout<<"\nResult: "<< recvbuf <<endl;
 	        // printf("Bytes received: %d\n", iResult);
 			if (convertToString(recvbuf, iResult) == (username + password)) {
-				string s = "successfull!";
+				string s = "Successfull!";
 				int n = s.length();
 				char char_array[n + 1];
 			
 				strcpy(char_array, s.c_str());
 				iSendResult = send(sa, char_array, n + 1, 0);
 			} else {
-				string s = "check username or password!";
+				string s = "Please check username or password!";
 			
 				int n = s.length();
 				char char_array[n + 1];
