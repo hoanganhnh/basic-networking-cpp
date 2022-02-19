@@ -60,19 +60,23 @@ int main(int argc, char **argv) {
 
 	//Gui nhan du lieu
 	string myName;
+
+	string username;
+	string password;
 	while(1){
 		//Nhap ten
-		cout << "\nNhap ten cua ban: ";
-		getline(cin,myName);
+		cout << "\n Enter username: ";
+		getline(cin,username);
+		cout << "\n Enter password: ";
+		getline(cin,password);
 		
-		send(ConnectSocket, myName.c_str(), myName.size(), 0);
+		send(ConnectSocket, (username + password).c_str(), (username + password).size(), 0);
 		
 		recv(ConnectSocket,connectedClient,256,0);
+	
 		cout << "\nNhan tu server: "<<connectedClient;
-	}//while(1){
+	}
 
-
-    // cleanup
     closesocket(ConnectSocket);
     WSACleanup();
     return 0;

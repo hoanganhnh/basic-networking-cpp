@@ -1,11 +1,21 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <stdio.h>
+#include <fstream>
 #include <iostream>
 
 #define DEFAULT_BUFLEN 512
 
 using namespace std;
+
+string convertToString(char* a, int size) {
+    int i;
+    string s = "";
+    for (i = 0; i < size; i++) {
+        s = s + a[i];
+    }
+    return s;
+}
 
 int main() {
 	
@@ -92,37 +102,65 @@ int main() {
 	char recvbuf[DEFAULT_BUFLEN];
 	int iSendResult;
 	int recvbuflen = DEFAULT_BUFLEN;
-	
+	string username;
+	string password;
 	// Receive until the peer shuts down the connection
+			
+	fstream my_data;
+	my_data.open("./data/data.txt", ios::in);
+	if (my_data.is_open()) {
+		// string str1;
+		// string str2;
+		getline(my_data, username);
+		getline(my_data, password);
+
+		cout << username << " " << password << endl;
+
+	}
+
 	do {
 	
 	    iResult = recv(sa, recvbuf, recvbuflen, 0);
     
-	    
 	    if (iResult > 0) {
 	        recvbuf[iResult] = '\0';
-			cout<<"Xin chao: "<<recvbuf<<endl;
-	        printf("Bytes received: %d\n", iResult);
-	
+			cout<<"\nResult: "<< recvbuf <<endl;
+	        // printf("Bytes received: %d\n", iResult);
+			if (convertToString(recvbuf, iResult) == (username + password)) {
+				string s = "successfull!";
+				int n = s.length();
+				char char_array[n + 1];
+			
+				strcpy(char_array, s.c_str());
+				iSendResult = send(sa, char_array, n + 1, 0);
+			} else {
+				string s = "check username or password!";
+			
+				int n = s.length();
+				char char_array[n + 1];
+			
+				strcpy(char_array, s.c_str());
+				iSendResult = send(sa, char_array, n + 1, 0);
+			}
 	        // Echo the buffer back to the sender
 	        //recvbuf[recvbuf.size()]='\0';
-	        iSendResult = send(sa, recvbuf, iResult, 0);
+	
 	        if (iSendResult == SOCKET_ERROR) {
 	            printf("send failed: %d\n", WSAGetLastError());
 	            closesocket(sa);
 	            WSACleanup();
 	            return 1;
 	        }
-	        printf("Bytes sent: %d\n", iSendResult);
-	    } else if (iResult == 0)
+	        // printf("Bytes sent: %d\n", iSendResult);
+	    } else if (iResult == 0) {
 	        printf("Connection closing...\n");
-	    else {
+		} else {
 	        printf("recv failed: %d\n", WSAGetLastError());
 	        closesocket(sa);
 	        WSACleanup();
 	        return 1;
 	    }
-	
+
 	} while (iResult > 0);
 /*****************************************************/
 /*    Disconnecting the Server*/
@@ -143,6 +181,8 @@ int main() {
 
 	
 	getchar();
+
+
 	return 0;
 }
 
