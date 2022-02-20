@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
 		
 		recv(ConnectSocket,connectedClient,256,0);
 	
-		cout << "\nNhan tu server: "<<connectedClient;
+		cout << "\nResponse to server: "<<connectedClient;
 	}
 
     closesocket(ConnectSocket);
