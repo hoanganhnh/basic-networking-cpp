@@ -108,20 +108,10 @@ int main() {
 	// Receive until the peer shuts down the connection
 	string id;
 	string name;
-	string age;
 
 	// Init class Student info
 	Student st;
 	do {
-	
-	    iResult = recv(sa, recvbuf, recvbuflen, 0);
-
-		if (iResult) {
-			recvbuf[iResult] = '\0';
-			cout<<"\nResult: "<< recvbuf << endl;
-			id = recvbuf;
-			cout << "id: "<< recvbuf;
-		}
 
 		iResult = recv(sa, recvbuf, recvbuflen, 0);
 		if (iResult) {
@@ -129,24 +119,17 @@ int main() {
 			cout<<"\nResult: "<< recvbuf << endl;
 			name = recvbuf;
 			cout << "name: "<< name;
+			string s = "Successfull!";
+			int n = s.length();
+			char char_array[n + 1];
+		
+			strcpy(char_array, s.c_str());
+			iSendResult = send(sa, char_array, n + 1, 0);
+			
+			st.modify_student(name);
 		}
 
-		iResult = recv(sa, recvbuf, recvbuflen, 0);
-		if (iResult) {
-			recvbuf[iResult] = '\0';
-			cout<<"\nResult: "<< recvbuf << endl;
-			age = recvbuf;
-			cout << "age: "<< age;
-		}
 
-		st.getdata(id, name, age);
-		st.write_student();
-
-		string data = st.showdata();
-		cout << "data: "<< data;
-		int n = data.length();
-		char char_array[n + 1];
-		iSendResult = send(sa, char_array, n + 1, 0);
 	    // if (iResult > 0) {
 	    //     recvbuf[iResult] = '\0';
 		// 	cout<<"\nResult: "<< recvbuf <<endl;

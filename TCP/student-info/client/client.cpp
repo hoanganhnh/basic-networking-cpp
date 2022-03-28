@@ -6,7 +6,7 @@
 #include <bits/stdc++.h>
 
 // @note: change absolute path
-// #include "E:\owner-project\server-client\TCP\student-info\student.cpp"
+#include "E:\owner-project\server-client\TCP\student-info\student.cpp"
 
 #define DEFAULT_BUFLEN 512
 
@@ -64,40 +64,33 @@ int main(int argc, char **argv) {
 	//Gui nhan du lieu
 
 	string id;
-	string age;
 	string name;
-	string password;
+	Student st;
 	int option;
 	while(1) {
 		// @todo: fix send data from serve to client
 		while (true){
 			cout<<"\n\n\t1.CREATE STUDENT RECORD";
 			cout<<"\n\n\t2.DISPLAY STUDENTS RECORDS";
-			cout<<"\n\n\t3.MODIFY STUDENT RECORD";
+			cout<<"\n\n\t3.MODIFY NAME STUDENT RECORD";
 			cout<<"\n\n\t4.Exit" << endl;
+
+			cout<< "\n\n\tChoose Option: ";
 			cin >> option;
 
 			switch (option) {
 				case 1:
-					cout << "\n Enter id: ";
-					cin >> id;
-					send(ConnectSocket, id.c_str(), id.size(), 0);
-					cout << "\n Enter name: ";
-					cin >> name;
-					send(ConnectSocket, name.c_str(), name.size(), 0);
-					cout << "\n Enter age: ";
-					cin >> age;
-					send(ConnectSocket, age.c_str(), age.size(), 0);
-
-					recv(ConnectSocket, connectedClient, 256, 0);
-					cout << "\nResponse to server: "<<connectedClient;
+					st.write_student();
 					break;
 				case 2:
-					cout << "\n Enter student id: ";
-					cin >> id;
-					send(ConnectSocket, id.c_str(), id.size(), 0);
+					st.display_all();
+					break;
+				case 3: 
+					cout << "Enter name student: ";
+					cin >> name;
+					send(ConnectSocket, name.c_str(), name.size(), 0);
 
-					recv(ConnectSocket, connectedClient, 256, 0);
+					recv(ConnectSocket,connectedClient,256,0);
 					cout << "\nResponse to server: "<<connectedClient;
 					break;
 				case 4:
