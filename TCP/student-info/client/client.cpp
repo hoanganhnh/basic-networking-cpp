@@ -12,6 +12,22 @@
 
 using namespace std;
 
+void create_student() {
+	Student st;
+	int id;
+	string name;
+	int age;
+
+	cout << "\n Enter ID: ";
+	cin >> id;
+	cout << "\n Enter NAME: ";
+	cin >> name;
+	cout << "\n Enter AGE: ";
+	cin >> age;
+	
+	st.write_data(id, name, age);
+}
+
 int main(int argc, char **argv) {
     WSADATA wsaData;
     int iResult;
@@ -65,10 +81,10 @@ int main(int argc, char **argv) {
 
 	string id;
 	string name;
+	string age;
 	Student st;
 	int option;
 	while(1) {
-		// @todo: fix send data from serve to client
 		while (true){
 			cout<<"\n\n\t1.CREATE STUDENT RECORD";
 			cout<<"\n\n\t2.DISPLAY STUDENTS RECORDS";
@@ -80,15 +96,21 @@ int main(int argc, char **argv) {
 
 			switch (option) {
 				case 1:
-					st.write_student();
+					create_student();
 					break;
 				case 2:
-					st.display_all();
+					st.output();
 					break;
 				case 3: 
-					cout << "Enter name student: ";
+					cout << "Modify id student: ";
+					cin >> id;
+					send(ConnectSocket, id.c_str(), id.size(), 0);
+					cout << "Modify name student: ";
 					cin >> name;
 					send(ConnectSocket, name.c_str(), name.size(), 0);
+					cout << "Modify age student: ";
+					cin >> age;
+					send(ConnectSocket, age.c_str(), age.size(), 0);
 
 					recv(ConnectSocket,connectedClient,256,0);
 					cout << "\nResponse to server: "<<connectedClient;
