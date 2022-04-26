@@ -4,6 +4,8 @@
 
 using namespace std;
 
+#include "E:\owner-project\server-client\UDP\Subject-Scores\Student.h"
+
 #pragma comment(lib,"ws2_32.lib") // Winsock Library
 #pragma warning(disable:4996)
 
@@ -48,6 +50,7 @@ int main() {
     puts("Bind done.");
 
     string option = "";
+    
     while (true) {
         printf("Waiting for data...");
         fflush(stdout);
@@ -60,29 +63,16 @@ int main() {
 
 		message_len = recvfrom(server_socket, message, BUFLEN, 0, (sockaddr*)&client, &slen);
 		option = message;
-        string temp;
-       
-        switch (stoi(option)) { 
-            case 1:
-                temp = "\nToan, \nLy, \nHoa";
-                sendto(server_socket, temp.c_str(), temp.size(), 0, (sockaddr*)&client, sizeof(sockaddr_in));
-                break;
-            case 2:
-                temp = "\nVan, \nSu, \nDia";
-                sendto(server_socket, temp.c_str(), temp.size(), 0, (sockaddr*)&client, sizeof(sockaddr_in));
-                break;
-            
-            default:
-                temp = "exits";
-                sendto(server_socket, temp.c_str(), temp.size(), 0, (sockaddr*)&client, sizeof(sockaddr_in));
-                break;
-        }
+        Student st(option);
+        string res = st.getDataStudent();
+        cout << "res: " << res << endl;
+        sendto(server_socket, res.c_str(), res.size(), 0, (sockaddr*)&client, sizeof(sockaddr_in));
         
 		memset(message, 0, sizeof(message));
 		
         // print details of the client/peer and the data received
         printf("Received packet from %s:%d\n", inet_ntoa(client.sin_addr), ntohs(client.sin_port));
-        cout << "Client:  " << temp << endl;
+        cout << "Client:  " << message << endl;
 
 
     }

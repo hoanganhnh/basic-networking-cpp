@@ -1,0 +1,3 @@
+B19DCPT008 Nguyen Hoang Anh Toan: 10, Ly: 8, Hoa: 7
+B19DCPT078 Nguyen Hoang Nam Toan: 8, Ly: 6, Hoa: 9
+B19DCPT001 Nguyen Van Hoa Toan: 1, Ly: 10, Hoa: 8

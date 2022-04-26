@@ -37,18 +37,15 @@ int main() {
     server.sin_addr.S_un.S_addr = inet_addr(SERVER);
 
     // start communication
-    string option;
+    string id;
 
     while (true) {
-        cout << "\n 1. Mon tu nhien ";
-        cout << "\n 2. Mon xa hoi ";
-        cout << "\n 3. Thoat ";
+        cout << "\n Enter student ID: ";
         char message[BUFLEN];
         
-        cout << "\n Enter option: ";
-		getline(cin, option);
+		getline(cin, id);
 
-		sendto(client_socket, option.c_str(), option.size(), 0, (sockaddr*)&server, sizeof(sockaddr_in));
+		sendto(client_socket, id.c_str(), id.size(), 0, (sockaddr*)&server, sizeof(sockaddr_in));
 
         char answer[BUFLEN] = {};
 
@@ -57,9 +54,7 @@ int main() {
         
         recvfrom(client_socket, answer, BUFLEN, 0, (sockaddr*)&server, &slen);
         string res = answer;
-        if (res == "exits") {
-            break;
-        }
+       
         cout << "\n" << res << endl;
 
     }
