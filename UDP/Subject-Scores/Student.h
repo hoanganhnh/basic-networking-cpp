@@ -54,4 +54,27 @@ public:
         cin.get();
         return s;
 	}
+
+    void showAllInforStudent() {
+        string path = "E:/owner-project/server-client/UDP/Subject-Scores/student.txt";
+        
+		fstream File;
+		string res="";
+
+        File.open(path,ios::binary|ios::in|ios::out);
+        if(!File) {
+            cout<<"File could not be open !! Press any Key...";
+            cin.ignore();
+            cin.get();
+            return;
+	    }
+
+		while (!File.eof()) {
+			getline(File, res);
+            cout << res << endl;
+		}
+        File.close();
+        cin.ignore();
+        cin.get();
+    }
 };

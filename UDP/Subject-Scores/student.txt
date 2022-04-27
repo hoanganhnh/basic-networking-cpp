@@ -1,3 +1,9 @@
-B19DCPT008 Nguyen Hoang Anh Toan: 10, Ly: 8, Hoa: 7
-B19DCPT078 Nguyen Hoang Nam Toan: 8, Ly: 6, Hoa: 9
-B19DCPT001 Nguyen Van Hoa Toan: 1, Ly: 10, Hoa: 8
+B19DCPT008 | Nguyen Hoang Anh  | Toan: 10, Ly: 8, Hoa: 7
+B19DCPT078 | Nguyen Hoang Nam  | Toan: 8, Ly: 6, Hoa: 9
+B19DCPT001 | Nguyen Thi Hoa    | Toan: 1, Ly: 10, Hoa: 8
+B19DCPT011 | Le Thi Luong      | Toan: 9, Ly: 10, Hoa: 8
+B19DCPT012 | Phan Van Nghia    | Toan: 2, Ly: 10, Hoa: 10
+B19DCPT013 | Nguyen Van Phuong | Toan: 3, Ly: 10, Hoa: 5
+B19DCPT014 | Le Thi Minh Phuong| Toan: 5, Ly: 10, Hoa: 1
+B19DCPT015 | Do Anh Thinh      | Toan: 6, Ly: 10, Hoa: 2
+B19DCPT016 | Le Thi Hoa Toan   | Toan: 7, Ly: 10, Hoa: 8

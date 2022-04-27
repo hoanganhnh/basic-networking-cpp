@@ -3,6 +3,8 @@
 
 using namespace std;
 
+#include "E:\owner-project\server-client\UDP\Subject-Scores\Student.h"
+
 #pragma comment(lib, "ws2_32.lib")
 #pragma warning(disable:4996)
 
@@ -36,26 +38,49 @@ int main() {
     server.sin_port = htons(PORT);
     server.sin_addr.S_un.S_addr = inet_addr(SERVER);
 
+    
+    char answer[BUFLEN] = {};
+
+    // try to receive some data, this is a blocking call
+    int slen = sizeof(sockaddr_in);
     // start communication
-    string id;
+    string id, res;
+    int option;
+    Student st;
 
-    while (true) {
+    while (1) {
+        while (true){
+            cout<<"\n 1.DISPLAY STUDENT INFORMATION";
+			cout<<"\n 2.DISPLAY STUDENTS RECORDS";
+			cout<<"\n 3.Exit" << endl;
+
+            cout<< "\n Choose Option: ";
+			cin >> option;
+
+            switch (option) {
+                case 1:
+                    cout << "Enter student ID: ";
+                    cin >> id;
+                    sendto(client_socket, id.c_str(), id.size(), 0, (sockaddr*)&server, sizeof(sockaddr_in));
+
+                    
+                    recvfrom(client_socket, answer, BUFLEN, 0, (sockaddr*)&server, &slen);
+                    res = answer;
+                    cout << "\n" << res << endl;
+                    break;
+                case 2:
+                    st.showAllInforStudent();
+                    break;
+                case 3:
+                    exit(0);
+                default:
+                    break;
+            }
+        }
         cout << "\n Enter student ID: ";
-        char message[BUFLEN];
+        // char message[BUFLEN];
         
-		getline(cin, id);
 
-		sendto(client_socket, id.c_str(), id.size(), 0, (sockaddr*)&server, sizeof(sockaddr_in));
-
-        char answer[BUFLEN] = {};
-
-        // try to receive some data, this is a blocking call
-        int slen = sizeof(sockaddr_in);
-        
-        recvfrom(client_socket, answer, BUFLEN, 0, (sockaddr*)&server, &slen);
-        string res = answer;
-       
-        cout << "\n" << res << endl;
 
     }
 
