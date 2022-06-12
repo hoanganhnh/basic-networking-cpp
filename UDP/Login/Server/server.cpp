@@ -1,9 +1,7 @@
 #include <winsock2.h>
 #include <bits/stdc++.h>
 
-// #include "user.h"
-
-using namespace std;
+#include "user.h"
 
 #pragma comment(lib,"ws2_32.lib") // Winsock Library
 #pragma warning(disable:4996)
@@ -11,58 +9,7 @@ using namespace std;
 #define BUFLEN 512
 #define PORT 8888
 
-#include <bits/stdc++.h>
-
 using namespace std;
-class UserInfor {
-private:
-	string name, password;
-
-public:
-	UserInfor(){}
-	UserInfor(string name, string password) {
-		this->name = name;
-		this->password = password;
-	}
-	void setName(string name) {
-		this->name = name;
-	}
-	void setPassword(string pass) {
-		this->password = pass;
-	}
-	string getName() {
-		return name;
-	}
-	string getPassword() {
-		return password;
-	}
-
-	bool compareString(string s1, string s2) {
-		if (s1.size() != s2.size())
-			return false;
-		for (int i = 0; i < s1.size(); i++)
-			if (tolower(s1[i]) != tolower(s2[i]))
-				return false;
-		return true;
-	}
-    string getData() {
-        string path = "./userInfor.txt";
-        fstream my_data;
-        my_data.open(path, ios::in);
-		string templete;
-
-        if (my_data.is_open()) {
-            getline(my_data, templete);
-        }
-        return templete;
-
-    }
-	bool checkExistInFile() {
-        string dataDefault = getName() + ' ' + getPassword();
-        cout << getData() << endl;
-		return getData() == dataDefault;
-	}
-};
 
 
 int main() {
