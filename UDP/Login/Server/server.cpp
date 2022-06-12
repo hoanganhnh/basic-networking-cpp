@@ -1,16 +1,15 @@
 #include <winsock2.h>
 #include <bits/stdc++.h>
 
-#include "user.h"
+#include "E:\owner-project\server-client\UDP\Login\user.h"
+
+using namespace std;
 
 #pragma comment(lib,"ws2_32.lib") // Winsock Library
 #pragma warning(disable:4996)
 
 #define BUFLEN 512
 #define PORT 8888
-
-using namespace std;
-
 
 int main() {
     system("title UDP Server");

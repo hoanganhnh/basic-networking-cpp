@@ -1,16 +1,17 @@
 #include <winsock2.h>
 #include <bits/stdc++.h>
 
+#include "E:\owner-project\server-client\UDP\Login\user.h"
 
 using namespace std;
-
-#include "E:\owner-project\server-client\UDP\Subject-Scores\Student.h"
 
 #pragma comment(lib,"ws2_32.lib") // Winsock Library
 #pragma warning(disable:4996)
 
 #define BUFLEN 512
-#define PORT 8888
+#define PORT 8081
+
+const char* IP = "10.10.17.23";
 
 #include <bits/stdc++.h>
 
@@ -39,7 +40,8 @@ int main() {
 
     // prepare the sockaddr_in structure
     server.sin_family = AF_INET;
-    server.sin_addr.s_addr = INADDR_ANY;
+    // server.sin_addr.s_addr = INADDR_ANY;
+    server.sin_addr.S_un.S_addr = inet_addr(IP);
     server.sin_port = htons(PORT);
 
     // bind
@@ -49,8 +51,8 @@ int main() {
     }
     puts("Bind done.");
 
-    string option = "";
-    
+    string cd = "";
+	string cr = "";
     while (true) {
         printf("Waiting for data...");
         fflush(stdout);
@@ -62,18 +64,17 @@ int main() {
 
 
 		message_len = recvfrom(server_socket, message, BUFLEN, 0, (sockaddr*)&client, &slen);
-		option = message;
-        Student st(option);
-        string res = st.getDataStudent();
-        cout << "res: " << res << endl;
-        sendto(server_socket, res.c_str(), res.size(), 0, (sockaddr*)&client, sizeof(sockaddr_in));
-        
+		cd = message;
 		memset(message, 0, sizeof(message));
-		
+		message_len = recvfrom(server_socket, message, BUFLEN, 0, (sockaddr*)&client, &slen);
+		cr = message;
+
         // print details of the client/peer and the data received
         printf("Received packet from %s:%d\n", inet_ntoa(client.sin_addr), ntohs(client.sin_port));
-        cout << "Client:  " << message << endl;
-
+        cout << "Xin chao " << cd << " - " << cr << endl;
+        int temp = stoi(cd) * stoi(cr) / 2;
+        string res = to_string(temp);
+        sendto(server_socket, res.c_str(), res.size(), 0, (sockaddr*)&client, sizeof(sockaddr_in));
 
     }
 

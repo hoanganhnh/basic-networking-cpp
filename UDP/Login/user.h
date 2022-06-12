@@ -33,7 +33,7 @@ public:
 		return true;
 	}
 	bool checkExistInFile() {
-        string path = "./userInfor.txt";
+        string path = "E:/owner-project/server-client/UDP/Login/userInfor.txt";
         
 		ifstream readFile(path, ios::in);
 		string s;
